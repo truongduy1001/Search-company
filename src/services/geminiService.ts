@@ -1,6 +1,11 @@
 import { GoogleGenAI, ThinkingLevel } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
+// Robust API Key retrieval for both AI Studio and external deployments (Vercel/Netlify)
+const API_KEY = process.env.GEMINI_API_KEY || (import.meta as any).env?.VITE_GEMINI_API_KEY;
+
+const ai = new GoogleGenAI({ 
+  apiKey: API_KEY || "" 
+});
 
 export interface CompanyInfo {
   taxId: string;
